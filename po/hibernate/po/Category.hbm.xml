@@ -13,7 +13,7 @@
 			<generator class="identity"/>
 		</id>
 		<property name="cname" type="string">
-			<column name="cname" sql-type="varchar(20)" not-null="true" />
+			<column name="category_name" sql-type="varchar(20)" not-null="true" />
 		</property>
 		
 	</class>

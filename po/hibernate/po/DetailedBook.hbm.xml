@@ -48,7 +48,7 @@
 			<column name="reader_notes" sql-type="varchar(200)" not-null="false" />
 		</property>
 		<property name="bookspecification" type="string">
-			<column name="books_pecification" sql-type="varchar(50)" not-null="false" />
+			<column name="book_specification" sql-type="varchar(50)" not-null="false" />
 		</property>
 		<property name="doubanintroduce" type="string">
 			<column name="douban_introduce" sql-type="varchar(500)" not-null="false" />
