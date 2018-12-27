@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!DOCTYPE   hibernate-mapping   
+          PUBLIC   "-//Hibernate/Hibernate   Mapping   DTD//EN"   
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="hibernate.po.Record" table="record">
+	
+		<id name="record_id" type="int">
+			<column name="record_id" sql-type="int" not-null="true" />
+			<generator class="identity"/>
+		</id>
+		<property name="bid" type="int">
+			<column name="bid" sql-type="int" not-null="true" />
+		</property>
+		<property name="userid" type="int">
+			<column name="userid" sql-type="int" not-null="true" />
+		</property>
+		<property name="borrow_time" type="date">
+			<column name="borrow_time" sql-type="datetime" not-null="true" />
+		</property>
+		<property name="return_time" type="date">
+			<column name="return_time" sql-type="datetime" not-null="true" />
+		</property>
+	</class>
+
+</hibernate-mapping>  
