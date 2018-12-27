@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!DOCTYPE   hibernate-mapping   
+          PUBLIC   "-//Hibernate/Hibernate   Mapping   DTD//EN"   
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="hibernate.po.Book" table="book">
+	
+		<id name="bid" type="int">
+			<column name="bid" sql-type="int(11)" not-null="true" />
+			<generator class="identity"/>
+		</id>
+		<property name="title" type="string">
+			<column name="title" sql-type="varchar(50)" not-null="true" />
+		</property>
+		<property name="author" type="string">
+			<column name="author" sql-type="varchar(50)" not-null="true" />
+		</property>
+		<property name="location" type="string">
+			<column name="location" sql-type="varchar(50)" not-null="true" />
+		</property>
+		
+	</class>
+
+</hibernate-mapping>  

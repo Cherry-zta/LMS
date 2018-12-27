@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!DOCTYPE   hibernate-mapping   
+          PUBLIC   "-//Hibernate/Hibernate   Mapping   DTD//EN"   
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="hibernate.po.DetailedBook" table="detailed_book">
+	
+		<id name="bid" type="int">
+			<column name="bid" sql-type="int(11)" not-null="true" />
+		</id>
+		<property name="status" type="string">
+			<column name="status" sql-type="varchar(20)" not-null="true" />
+		</property>
+		<property name="publishinghouse" type="string">
+			<column name="publishing_house" sql-type="varchar(50)" not-null="false" />
+		</property>
+		<property name="series" type="string">
+			<column name="series" sql-type="varchar(50)" not-null="false" />
+		</property>
+		<property name="isbn" type="string">
+			<column name="ISBN" sql-type="varchar(13)" not-null="false" />
+		</property>
+		<property name="borrowtimes" type="int">
+			<column name="borrow_times" sql-type="int" not-null="true" />
+		</property>
+		<property name="categorynumber" type="string">
+			<column name="category_number" sql-type="varchar(20)" not-null="false" />
+		</property>
+		<property name="author" type="string">
+			<column name="author" sql-type="varchar(20)" not-null="true" />
+		</property>
+		<property name="secondauthor" type="string">
+			<column name="secondauthor" sql-type="varchar(20)" not-null="false" />
+		</property>
+		<property name="introduction" type="string">
+			<column name="introduction" sql-type="varchar(500)" not-null="false" />
+		</property>
+		<property name="summary" type="string">
+			<column name="summary" sql-type="varchar(500)" not-null="false" />
+		</property>
+		<property name="authornotes" type="string">
+			<column name="author_notes" sql-type="varchar(200)" not-null="false" />
+		</property>
+		<property name="readernotes" type="string">
+			<column name="reader_notes" sql-type="varchar(200)" not-null="false" />
+		</property>
+		<property name="bookspecification" type="string">
+			<column name="books_pecification" sql-type="varchar(50)" not-null="false" />
+		</property>
+		<property name="doubanintroduce" type="string">
+			<column name="douban_introduce" sql-type="varchar(500)" not-null="false" />
+		</property>
+		
+	</class>
+
+</hibernate-mapping>  

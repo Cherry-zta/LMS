@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!DOCTYPE   hibernate-mapping   
+          PUBLIC   "-//Hibernate/Hibernate   Mapping   DTD//EN"   
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="hibernate.po.RelationBook" table="relation_book">
+	
+		<composite-id>
+			<key-property name="bid" type="int" column="bid"></key-property>
+			<key-property name="cid" type="int" column="cid"></key-property>
+		</composite-id>
+
+	</class>
+
+</hibernate-mapping>  

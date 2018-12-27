@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <!DOCTYPE   hibernate-mapping   
+          PUBLIC   "-//Hibernate/Hibernate   Mapping   DTD//EN"   
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="hibernate.po.penalty" table="Penalty">
+	
+		<id name="pid" type="int">
+			<column name="penalty_id" sql-type="int(11)" not-null="true" />
+			<generator class="identity"/>
+		</id>
+		<property name="userid" type="int">
+			<column name="userid" sql-type="int" not-null="true" />
+		</property>
+		<property name="bid" type="int">
+			<column name="bid" sql-type="int" not-null="true" />
+		</property>
+		<property name="returntime" type="java.util.Date">
+			<column name="return_time" sql-type="datetime" not-null="true" />
+		</property>
+		<property name="shouldreturntime" type="java.util.Date">
+			<column name="should_return_time" sql-type="datetime" not-null="true" />
+		</property>
+		<property name="assessment" type="float">
+			<column name="assessment" sql-type="float" not-null="true" />
+		</property>
+		<property name="paid" type="float">
+			<column name="paid" sql-type="float" not-null="true" />
+		</property>
+		
+	</class>
+
+</hibernate-mapping>  
