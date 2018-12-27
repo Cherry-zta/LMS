@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<c3p0-config>
+    <default-config> 
+        <property name="jdbcUrl">
+            <![CDATA[
+                jdbc:mysql://localhost:3306/lms]]>
+        </property>
+        <property name="driverClass">com.mysql.jdbc.Driver</property>
+        <property name="user">su</property>
+        <property name="password">123</property> 
+        <property name="acquireIncrement">3</property>
+        <property name="initialPoolSize">10</property>
+        <property name="minPoolSize">10</property>
+        <property name="maxPoolSize">100</property>
+    </default-config>
+</c3p0-config>
