@@ -1,9 +1,8 @@
 package com.vae.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
+public class User{
 	private int userid;
 	private Date effective_date;
 	private Date expiry_date;

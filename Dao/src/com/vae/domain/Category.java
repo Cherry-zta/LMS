@@ -1,8 +1,6 @@
 package com.vae.domain;
 
-import java.io.Serializable;
-
-public class Category implements Serializable {
+public class Category {
 	private int cid;
 	private String cname;
 	

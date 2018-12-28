@@ -1,9 +1,8 @@
 package com.vae.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Penalty implements Serializable {
+public class Penalty {
 	private int pid;
 	private int userid;
 	private int bid;

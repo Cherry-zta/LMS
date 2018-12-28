@@ -1,8 +1,7 @@
 package com.vae.domain;
 
-import java.io.Serializable;
 
-public class DetailedBook implements Serializable {
+public class DetailedBook{
 	private int bid;
 	private String status;
 	private String publishinghouse;

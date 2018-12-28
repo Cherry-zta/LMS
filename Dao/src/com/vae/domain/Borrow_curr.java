@@ -1,9 +1,8 @@
 package com.vae.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Borrow_curr implements Serializable {
+public class Borrow_curr {
 	private int borrow_crr_id;
 	private int bid;
 	private int userid;

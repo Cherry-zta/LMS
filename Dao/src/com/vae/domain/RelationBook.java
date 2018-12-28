@@ -1,8 +1,7 @@
 package com.vae.domain;
 
-import java.io.Serializable;
 
-public class RelationBook implements Serializable {
+public class RelationBook{
 	private int bid;
 	private int cid;
 	

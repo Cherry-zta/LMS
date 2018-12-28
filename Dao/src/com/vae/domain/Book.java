@@ -1,9 +1,6 @@
 package com.vae.domain;
 
-
-import java.io.Serializable;
-
-public class Book implements Serializable {
+public class Book{
 	private int bid;
 	private String title;
 	private String author;
@@ -34,4 +31,5 @@ public class Book implements Serializable {
 	public String getLocation() {
 		return this.location;
 	}
+
 }

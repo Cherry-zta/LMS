@@ -1,8 +1,7 @@
 package com.vae.domain;
-import java.io.Serializable;
 import java.util.Date;
 
-public class Record implements Serializable{
+public class Record{
 	private int record_id;
 	private int bid;
 	private int userid;

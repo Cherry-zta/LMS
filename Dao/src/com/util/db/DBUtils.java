@@ -1,9 +1,12 @@
 package com.util.db;
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 
 public class DBUtils {
   private static Connection conn;
@@ -18,14 +21,14 @@ public class DBUtils {
         return conn;
     }
 
-    public static void close(Connection conn){  
-        if(conn!=null){  
-            try {  
-                conn.close();  
-            } catch (SQLException e) {  
-                e.printStackTrace();  
-            }  
-        }  
+    public static void close(ResultSet rs,Statement stat,Connection conn){
+     try {
+             if(rs!=null)rs.close();
+             if(stat!=null)stat.close();
+             if(conn!=null)conn.close();
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
     }
 
 }
