@@ -13,15 +13,15 @@ public class test {
 	public static void main(String arg[]) {
 		Date d=new Date();
 		
-//		Borrow_curr b=new Borrow_curr();
-//		b.setBid(1);
-//		b.setBorrow_crr_id(1);
-//		b.setUserid(1);
+		Borrow_curr b=new Borrow_curr();
+		b.setBid(1);
+		b.setBorrow_crr_id(1);
+		b.setUserid(1);
 //
-//		Borrow_currDao bd=new Borrow_currDao();
+		Borrow_currDao bd=new Borrow_currDao();
 		
 		User user=new User();
-//		user.setUserid(1);
+		user.setUserid(1);
 		user.setProfession("cs");
 		user.setType("teacher");
 		
@@ -29,7 +29,7 @@ public class test {
 		
 		try {
 			ud.add(user);
-//			bd.add(b);
+			bd.add(b);
 //			System.out.println(bd.query("select * from book where title='titl'"));
 //			bd.delete(b);
 		} catch (SQLException e) {
