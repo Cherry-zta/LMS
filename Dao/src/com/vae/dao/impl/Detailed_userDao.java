@@ -20,7 +20,7 @@ public class Detailed_userDao {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into Detailed_user(userid, id_number, departement, sex, identify, company, degree, birth, borrow_max, appionent_max, entrust_max, phone, postcode, cash_pledge, position, borrow_account, break_rules_account, handing_charge, borrow_grade, address)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		 String sql = "insert into detailed_user(userid, id_number, departement, sex, identify, company, degree, birth, borrow_max, appionent_max, entrust_max, phone, postcode, cash_pledge, position, borrow_account, break_rules_account, handing_charge, borrow_grade, address)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -62,7 +62,7 @@ public class Detailed_userDao {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update Detailed_user set id_number=?, departement=?, sex=?, identify=?, company=?, degree=?, birth=?, borrow_max=?, appionent_max=?, entrust_max=?, phone=?, postcode=?, cash_pledge=?, position=?, borrow_account=?, break_rules_account=?, handing_charge=?, borrow_grade=?, address=? where userid=?";
+		 String sql = "update detailed_user set id_number=?, departement=?, sex=?, identify=?, company=?, degree=?, birth=?, borrow_max=?, appionent_max=?, entrust_max=?, phone=?, postcode=?, cash_pledge=?, position=?, borrow_account=?, break_rules_account=?, handing_charge=?, borrow_grade=?, address=? where userid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -106,7 +106,7 @@ public class Detailed_userDao {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from Detailed_user where userid=?";
+		 String sql = "delete from detailed_user where userid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();

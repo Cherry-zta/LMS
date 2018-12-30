@@ -21,7 +21,7 @@ public class DetailedBookDao {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into Detailedbook(bid, status, publishinghouse, series, isbn, borrowtimes, categorynumber,author, secondauthor, introduction, summary, authornotes, readernotes, bookspecification, doubanintroduce)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		 String sql = "insert into detailedbook(bid, status, publishinghouse, series, isbn, borrowtimes, categorynumber,author, secondauthor, introduction, summary, authornotes, readernotes, bookspecification, doubanintroduce)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -58,7 +58,7 @@ public class DetailedBookDao {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update Detailedbook set status=?, publishinghouse=?, series=?, isbn=?, borrowtimes=?, categorynumber=?,author=?, secondauthor=?, introduction=?, summary=?, authornotes=?, readernotes=?, bookspecification=?, doubanintroduce=? where bid=?";
+		 String sql = "update detailedbook set status=?, publishinghouse=?, series=?, isbn=?, borrowtimes=?, categorynumber=?,author=?, secondauthor=?, introduction=?, summary=?, authornotes=?, readernotes=?, bookspecification=?, doubanintroduce=? where bid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -96,7 +96,7 @@ public class DetailedBookDao {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from Detailedbook where bid=?";
+		 String sql = "delete from detailedbook where bid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();

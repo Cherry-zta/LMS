@@ -2,32 +2,26 @@ package com.vae.dao.impl;
 
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
-import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.util.db.DBUtils;
-import com.vae.domain.Borrow_curr;
+import com.vae.domain.Category;
+import com.vae.domain.DetailedBook;
 
-public class Borrow_currDao {
-
-	public void add(Borrow_curr Borrow_curr) throws SQLException {
+public class CategoryDao {
+	public void add(Category category) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 Date date=new Date();
-		 String sql = "insert into borrow_curr(borrow_crr_id , bid , userid , borrow_time , should_return_time)values(?,?,?,?,?)";
+		 String sql = "insert into category(cid,cname) values(?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -36,18 +30,9 @@ public class Borrow_currDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,Borrow_curr.getBid());
-				 ps.setInt(2, Borrow_curr.getBorrow_crr_id());
-				 ps.setInt(3, Borrow_curr.getUserid());
-				 Borrow_curr.setBorrow_time(date);
-				 Calendar calendar = Calendar.getInstance();
-				 calendar.add(Calendar.DAY_OF_MONTH, 30);
-				 date = calendar.getTime();
-				 Borrow_curr.setShould_return_time(date);
-			
-				 ps.setDate(4, new java.sql.Date(Borrow_curr.getBorrow_time().getTime()));
-				 ps.setDate(5, new java.sql.Date(Borrow_curr.getShould_return_time().getTime()));
-				 
+				ps.setInt(1, category.getCid());
+				ps.setString(2, category.getCname());
+				
               ps.executeUpdate();
           }catch(SQLException e){
               e.printStackTrace();
@@ -57,11 +42,11 @@ public class Borrow_currDao {
           }
 	}
 
-	public void update(Borrow_curr Borrow_curr) throws SQLException {
+	public void update(Category category) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update borrow_curr set bid=? , userid=? , borrow_time=? , should_return_time=? where borrow_crr_id=? ";
+		 String sql = "update category set cname=? where cid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -70,11 +55,9 @@ public class Borrow_currDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,Borrow_curr.getBid());
-				 ps.setInt(2, Borrow_curr.getUserid());
-				 ps.setDate(3, new java.sql.Date(Borrow_curr.getBorrow_time().getTime()));
-				 ps.setDate(4, new java.sql.Date(Borrow_curr.getShould_return_time().getTime()));
-				 ps.setInt(5, Borrow_curr.getBorrow_crr_id());
+				 
+				 ps.setString(1, category.getCname());
+				 ps.setInt(2,category.getCid());
              ps.executeUpdate();
          }catch(SQLException e){
              e.printStackTrace();
@@ -84,11 +67,11 @@ public class Borrow_currDao {
          }
 	}
 
-	public void delete(Borrow_curr Borrow_curr) throws SQLException {
+	public void delete(Category category) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from borrow_curr where bid=?";
+		 String sql = "delete from category where cid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -97,7 +80,7 @@ public class Borrow_currDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,Borrow_curr.getBid());
+				 ps.setInt(1,category.getCid());
             ps.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();

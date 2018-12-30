@@ -71,7 +71,7 @@ public class UserDao {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update User set  effective_date=?, expiry_date=?, type=?, profession=? where userid=?";
+		 String sql = "update user set  effective_date=?, expiry_date=?, type=?, profession=? where userid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -98,7 +98,7 @@ public class UserDao {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from User where userid=?";
+		 String sql = "delete from user where userid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
