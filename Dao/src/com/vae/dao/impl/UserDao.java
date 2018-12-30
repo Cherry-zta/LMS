@@ -8,20 +8,22 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.util.db.DBUtils;
-import com.vae.domain.Book;
+import com.vae.domain.User;
 
-public class BookDao{
+public class UserDao {
 
-	public void add(Book book) throws SQLException {
+	public void add(User user) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into book(bid,title,author,location)values(?,?,?,?)";
+		 String sql = "insert into user(userid, effective_date, expiry_date, type, profession)values(?,?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -30,10 +32,32 @@ public class BookDao{
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,book.getBid());
-				 ps.setString(2, book.getTitle());
-				 ps.setString(3, book.getAuthor());
-				 ps.setString(4, book.getLocation());
+				 ps.setInt(1,user.getUserid());
+				 Date d=new Date();
+				 user.setEffective_date(d);
+				 if(user.getType().equals("student")) {
+					 Calendar calendar = Calendar.getInstance();
+					 calendar.add(Calendar.DAY_OF_YEAR,4*365+1);
+					 d = calendar.getTime();
+					 user.setExpiry_date(d);
+				 }
+				 if(user.getType().equals("teacher")) {
+					 Calendar calendar = Calendar.getInstance();
+					 calendar.add(Calendar.DAY_OF_YEAR,365);
+					 d = calendar.getTime();
+					 user.setExpiry_date(d);
+				 }
+				 if(user.getType().equals("postgradute")) {
+					 Calendar calendar = Calendar.getInstance();
+					 calendar.add(Calendar.DAY_OF_YEAR,365*3);
+					 d = calendar.getTime();
+					 user.setExpiry_date(d);
+				 }
+				 
+				 ps.setDate(2, new java.sql.Date(user.getEffective_date().getTime()));
+				 ps.setDate(3, new java.sql.Date(user.getExpiry_date().getTime()));
+				 ps.setString(4, user.getType());
+				 ps.setString(5, user.getProfession());
               ps.executeUpdate();
           }catch(SQLException e){
               e.printStackTrace();
@@ -43,11 +67,11 @@ public class BookDao{
           }
 	}
 
-	public void update(Book book) throws SQLException {
+	public void update(User user) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update book set location=?,title=?,author=? where bid=?";
+		 String sql = "update User set  effective_date=?, expiry_date=?, type=?, profession=? where userid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -56,10 +80,11 @@ public class BookDao{
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(4,book.getBid());
-				 ps.setString(1, book.getTitle());
-				 ps.setString(2, book.getAuthor());
-				 ps.setString(3, book.getLocation());
+				 ps.setInt(1,user.getUserid());
+				 ps.setDate(2, new java.sql.Date(user.getEffective_date().getTime()));
+				 ps.setDate(3, new java.sql.Date(user.getExpiry_date().getTime()));
+				 ps.setString(4, user.getType());
+				 ps.setString(5, user.getProfession());
              ps.executeUpdate();
          }catch(SQLException e){
              e.printStackTrace();
@@ -69,11 +94,11 @@ public class BookDao{
          }
 	}
 
-	public void delete(Book book) throws SQLException {
+	public void delete(User user) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from book where bid=?";
+		 String sql = "delete from User where userid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -82,7 +107,7 @@ public class BookDao{
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,book.getBid());
+				 ps.setInt(1,user.getUserid());
             ps.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -124,6 +149,4 @@ public class BookDao{
 		
 		
 	}
-
-
 }
