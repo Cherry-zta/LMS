@@ -13,14 +13,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.util.db.DBUtils;
-import com.vae.domain.Penalty;
+import com.vae.domain.Record;
 
-public class PenaltyDao {
-	public void add(Penalty penalty) throws SQLException {
+public class RecordDao {
+	public void add(Record record) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into penalty(pid, userid, bid, returntime, shouldreturntime, assessment, paid) values(?,?,?,?,?,?,?)";
+		 String sql = "insert into record(	record_id, bid, userid, borrow_time, return_time) values(?,?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -29,13 +29,12 @@ public class PenaltyDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				ps.setInt(1, penalty.getPid());
-				ps.setInt(2, penalty.getUserid());
-				ps.setInt(3, penalty.getBid());
-				ps.setDate(4,new java.sql.Date(penalty.getReturntime().getTime()));
-				ps.setDate(5, new java.sql.Date(penalty.getShouldreturntime().getTime()));
-				ps.setFloat(6, penalty.getAssessment());
-				ps.setFloat(7, penalty.getPaid());
+				ps.setInt(1, record.getRecord_id());
+				ps.setInt(2, record.getBid());
+				ps.setInt(3, record.getUserid());
+				ps.setDate(4,new java.sql.Date(record.getBorrow_time().getTime()));
+				ps.setDate(5, new java.sql.Date(record.getReturn_time().getTime()));
+				
 				
               ps.executeUpdate();
           }catch(SQLException e){
@@ -46,11 +45,11 @@ public class PenaltyDao {
           }
 	}
 
-	public void update(Penalty penalty) throws SQLException {
+	public void update(Record record) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update penalty set userid=?, bid=?, returntime=?, shouldreturntime=?, assessment=?, paid=? where pid=?";
+		 String sql = "update record set bid=?, userid=?, borrow_time=?, return_time=? where record_id=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -60,14 +59,12 @@ public class PenaltyDao {
 				}
 				 ps = conn.prepareStatement(sql);
 				
-				ps.setInt(1, penalty.getUserid());
-				ps.setInt(2, penalty.getBid());
-				ps.setDate(3,new java.sql.Date(penalty.getReturntime().getTime()));
-				ps.setDate(4, new java.sql.Date(penalty.getShouldreturntime().getTime()));
-				ps.setFloat(5, penalty.getAssessment());
-				ps.setFloat(6, penalty.getPaid());
-				 
-				ps.setInt(7, penalty.getPid());
+				ps.setInt(5, record.getRecord_id());
+				ps.setInt(1, record.getBid());
+				ps.setInt(2, record.getUserid());
+				ps.setDate(3, new java.sql.Date(record.getBorrow_time().getTime()));
+				ps.setDate(4, new java.sql.Date(record.getReturn_time().getTime()));
+					
 				 
              ps.executeUpdate();
          }catch(SQLException e){
@@ -78,11 +75,11 @@ public class PenaltyDao {
          }
 	}
 
-	public void delete(Penalty penalty) throws SQLException {
+	public void delete(Record record) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from penalty where pid=?";
+		 String sql = "delete from record where record_id=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -91,7 +88,7 @@ public class PenaltyDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1, penalty.getPid());
+				 ps.setInt(1, record.getRecord_id());
             ps.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
