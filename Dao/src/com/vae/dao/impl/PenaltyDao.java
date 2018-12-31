@@ -8,19 +8,21 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.util.db.DBUtils;
 import com.vae.domain.Category;
+import com.vae.domain.Penalty;
 
-public class CategoryDao {
-	public void add(Category category) throws SQLException {
+public class PenaltyDao {
+	public void add(Penalty penalty) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into category(cid,cname) values(?,?)";
+		 String sql = "insert into penalty(pid, userid, bid, returntime, shouldreturntime, assessment, paid) values(?,?,?,?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -29,8 +31,13 @@ public class CategoryDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				ps.setInt(1, category.getCid());
-				ps.setString(2, category.getCname());
+				ps.setInt(1, penalty.getPid());
+				ps.setInt(2, penalty.getUserid());
+				ps.setInt(3, penalty.getBid());
+				ps.setDate(4,new java.sql.Date(penalty.getReturntime().getTime()));
+				ps.setDate(5, new java.sql.Date(penalty.getShouldreturntime().getTime()));
+				ps.setFloat(6, penalty.getAssessment());
+				ps.setFloat(7, penalty.getPaid());
 				
               ps.executeUpdate();
           }catch(SQLException e){
@@ -41,11 +48,11 @@ public class CategoryDao {
           }
 	}
 
-	public void update(Category category) throws SQLException {
+	public void update(Penalty penalty) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update category set cname=? where cid=?";
+		 String sql = "update penalty set userid=?, bid=?, returntime=?, shouldreturntime=?, assessment=?, paid=? where pid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -54,9 +61,16 @@ public class CategoryDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
+				
+				ps.setInt(1, penalty.getUserid());
+				ps.setInt(2, penalty.getBid());
+				ps.setDate(3,new java.sql.Date(penalty.getReturntime().getTime()));
+				ps.setDate(4, new java.sql.Date(penalty.getShouldreturntime().getTime()));
+				ps.setFloat(5, penalty.getAssessment());
+				ps.setFloat(6, penalty.getPaid());
 				 
-				 ps.setString(1, category.getCname());
-				 ps.setInt(2,category.getCid());
+				ps.setInt(7, penalty.getPid());
+				 
              ps.executeUpdate();
          }catch(SQLException e){
              e.printStackTrace();
@@ -66,11 +80,11 @@ public class CategoryDao {
          }
 	}
 
-	public void delete(Category category) throws SQLException {
+	public void delete(Penalty penalty) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from category where cid=?";
+		 String sql = "delete from penalty where pid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -79,7 +93,7 @@ public class CategoryDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,category.getCid());
+				 ps.setInt(1, penalty.getPid());
             ps.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
