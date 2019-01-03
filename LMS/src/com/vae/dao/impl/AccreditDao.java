@@ -8,23 +8,19 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.util.db.DBUtils;
-import com.vae.domain.Book;
-import com.vae.domain.User;
+import com.vae.domain.Accredit;
 
-public class UserDao {
-
-	public void add(User user) throws SQLException {
+public class AccreditDao {
+	public void add(Accredit accredit) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into user(userid, effective_date, expiry_date, type, profession,pwd)values(?,?,?,?,?,?)";
+		 String sql = "insert into accredit(accredit_id,accredit_type,status,userid) values(?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -33,33 +29,11 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,user.getUserid());
-				 Date d=new Date();
-				 user.setEffective_date(d);
-				 if(user.getType().equals("student")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,4*365+1);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 if(user.getType().equals("teacher")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,365);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 if(user.getType().equals("postgradute")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,365*3);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 
-				 ps.setDate(2, new java.sql.Date(user.getEffective_date().getTime()));
-				 ps.setDate(3, new java.sql.Date(user.getExpiry_date().getTime()));
-				 ps.setString(4, user.getType());
-				 ps.setString(5, user.getProfession());
-				 ps.setString(6, user.getPwd());
+				ps.setString(1, accredit.getAccredit_id());
+				ps.setString(2, accredit.getAccredit_type());
+				ps.setInt(3,accredit.getStatus());
+				ps.setInt(4, accredit.getUserid());
+				
               ps.executeUpdate();
           }catch(SQLException e){
               e.printStackTrace();
@@ -69,12 +43,11 @@ public class UserDao {
           }
 	}
 
-	
-	public void update(User user) throws SQLException {
+	public void update(Accredit accredit) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update user set effective_date=?,expiry_date=?,type=?,profession=?,pwd=? where userid=?";
+		 String sql = "update accredit set accredit_type=?,status=?,userid=? where accredit_id=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -83,12 +56,11 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(6,user.getUserid());
-				 ps.setDate(1, new java.sql.Date(user.getEffective_date().getTime()));
-				 ps.setDate(2, new java.sql.Date(user.getExpiry_date().getTime()));
-				 ps.setString(3, user.getType());
-				 ps.setString(4, user.getProfession());
-				 ps.setString(5, user.getPwd());
+				 
+				 ps.setString(1, accredit.getAccredit_type());
+				 ps.setInt(2,accredit.getStatus());
+				 ps.setInt(3, accredit.getUserid());
+				 ps.setString(4, accredit.getAccredit_id());
              ps.executeUpdate();
          }catch(SQLException e){
              e.printStackTrace();
@@ -98,11 +70,11 @@ public class UserDao {
          }
 	}
 
-	public void delete(User user) throws SQLException {
+	public void delete(Accredit accredit) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from user where userid=?";
+		 String sql = "delete from accredit where accredit_id=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -111,7 +83,7 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,user.getUserid());
+				 ps.setString(1,accredit.getAccredit_id());
             ps.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -152,12 +124,12 @@ public class UserDao {
 		return resultList;	
 	}
 	
-	public User queryById(int id) throws SQLException{
+	public Accredit queryById(String id) throws SQLException{
 		 Connection conn = null;
 		 PreparedStatement ps = null;
 		 ResultSet rs = null;
-		 User u = null;
-		 String sql = "select * from user where userid=?";
+		 Accredit accredit = null;
+		 String sql = "select * from accredit where accredit_id=?";
 		 try{
 			 try {
 				conn = DBUtils.getConnection();
@@ -166,16 +138,14 @@ public class UserDao {
 				e.printStackTrace();
 			}
 		             ps = conn.prepareStatement(sql);
-		            ps.setInt(1, id);
+		            ps.setString(1, id);
 		             rs = ps.executeQuery();
 		            if(rs.next()){
-	                 u = new User();
-	                 u.setUserid(id);
-	                 u.setEffective_date(rs.getDate("effective_date"));
-	                 u.setExpiry_date(rs.getDate("expiry_date"));
-	                 u.setProfession(rs.getString("profession"));
-	                 u.setType(rs.getString("type"));
-	                 u.setPwd(rs.getString("pwd"));
+	                 accredit = new Accredit();
+	                 accredit.setAccredit_id(rs.getString("accredit_id"));
+	                 accredit.setAccredit_type(rs.getString("accredit_type"));
+	                 accredit.setStatus(rs.getInt("status"));
+	                 accredit.setUserid(rs.getInt("userid"));
 	             }
 	         }catch(SQLException e){
 	             e.printStackTrace();
@@ -183,6 +153,6 @@ public class UserDao {
 	        }finally{
 	             DBUtils.close(rs, ps, conn);
 	         }
-	         return u;
+	         return accredit;
 	}
 }

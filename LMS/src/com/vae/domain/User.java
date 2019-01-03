@@ -8,6 +8,7 @@ public class User{
 	private Date expiry_date;
 	private String type;
 	private String profession;
+	private String pwd;
 	
 	public void setUserid(int userid) {
 		this.userid=userid;
@@ -47,5 +48,13 @@ public class User{
 	
 	public String getProfession() {
 		return this.profession;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 }

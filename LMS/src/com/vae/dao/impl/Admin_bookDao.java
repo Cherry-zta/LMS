@@ -1,5 +1,6 @@
 package com.vae.dao.impl;
 
+
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +16,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.util.db.DBUtils;
-import com.vae.domain.Book;
-import com.vae.domain.User;
+import com.vae.domain.Admin;
+import com.vae.domain.Admin_book;
 
-public class UserDao {
-
-	public void add(User user) throws SQLException {
+public class Admin_bookDao {
+	public void add(Admin_book admin_book) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into user(userid, effective_date, expiry_date, type, profession,pwd)values(?,?,?,?,?,?)";
+		 String sql = "insert into admin_book(aid, bid, add_time, status)values(?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -33,33 +33,13 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,user.getUserid());
-				 Date d=new Date();
-				 user.setEffective_date(d);
-				 if(user.getType().equals("student")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,4*365+1);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 if(user.getType().equals("teacher")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,365);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 if(user.getType().equals("postgradute")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,365*3);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
 				 
-				 ps.setDate(2, new java.sql.Date(user.getEffective_date().getTime()));
-				 ps.setDate(3, new java.sql.Date(user.getExpiry_date().getTime()));
-				 ps.setString(4, user.getType());
-				 ps.setString(5, user.getProfession());
-				 ps.setString(6, user.getPwd());
+				 Date date=new Date();
+				 admin_book.setAdd_time(date);
+				ps.setInt(1, admin_book.getAid());
+				ps.setInt(2, admin_book.getBid());
+				ps.setDate(3, new java.sql.Date(admin_book.getAdd_time().getTime()));
+				ps.setInt(4, admin_book.getStatus());
               ps.executeUpdate();
           }catch(SQLException e){
               e.printStackTrace();
@@ -70,11 +50,11 @@ public class UserDao {
 	}
 
 	
-	public void update(User user) throws SQLException {
+	public void update(Admin_book admin_book) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update user set effective_date=?,expiry_date=?,type=?,profession=?,pwd=? where userid=?";
+		 String sql = "update admin_book set add_time=?,status=? where aid=? and bid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -83,12 +63,10 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(6,user.getUserid());
-				 ps.setDate(1, new java.sql.Date(user.getEffective_date().getTime()));
-				 ps.setDate(2, new java.sql.Date(user.getExpiry_date().getTime()));
-				 ps.setString(3, user.getType());
-				 ps.setString(4, user.getProfession());
-				 ps.setString(5, user.getPwd());
+				ps.setDate(1, new java.sql.Date(admin_book.getAdd_time().getTime()));
+				ps.setInt(2, admin_book.getStatus());
+				ps.setInt(3, admin_book.getAid());
+				ps.setInt(4, admin_book.getBid());
              ps.executeUpdate();
          }catch(SQLException e){
              e.printStackTrace();
@@ -98,11 +76,11 @@ public class UserDao {
          }
 	}
 
-	public void delete(User user) throws SQLException {
+	public void delete(Admin_book admin_book) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from user where userid=?";
+		 String sql = "delete from admin_book where aid=? and bid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -111,7 +89,8 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,user.getUserid());
+				 ps.setInt(1,admin_book.getAid());
+				 ps.setInt(2, admin_book.getBid());
             ps.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -152,12 +131,12 @@ public class UserDao {
 		return resultList;	
 	}
 	
-	public User queryById(int id) throws SQLException{
+	public Admin_book queryById(int aid,int bid) throws SQLException{
 		 Connection conn = null;
 		 PreparedStatement ps = null;
 		 ResultSet rs = null;
-		 User u = null;
-		 String sql = "select * from user where userid=?";
+		 Admin_book admin_book = null;
+		 String sql = "select * from admin_book where aid=? and bid=?";
 		 try{
 			 try {
 				conn = DBUtils.getConnection();
@@ -166,16 +145,15 @@ public class UserDao {
 				e.printStackTrace();
 			}
 		             ps = conn.prepareStatement(sql);
-		            ps.setInt(1, id);
+		            ps.setInt(1, aid);
+		            ps.setInt(2, bid);
 		             rs = ps.executeQuery();
 		            if(rs.next()){
-	                 u = new User();
-	                 u.setUserid(id);
-	                 u.setEffective_date(rs.getDate("effective_date"));
-	                 u.setExpiry_date(rs.getDate("expiry_date"));
-	                 u.setProfession(rs.getString("profession"));
-	                 u.setType(rs.getString("type"));
-	                 u.setPwd(rs.getString("pwd"));
+		              admin_book = new Admin_book();
+		              admin_book.setAid(rs.getInt("aid"));
+		              admin_book.setBid(rs.getInt("bid"));
+		              admin_book.setAdd_time(rs.getDate("add_time"));
+		              admin_book.setStatus(rs.getInt("status"));
 	             }
 	         }catch(SQLException e){
 	             e.printStackTrace();
@@ -183,6 +161,6 @@ public class UserDao {
 	        }finally{
 	             DBUtils.close(rs, ps, conn);
 	         }
-	         return u;
+	         return admin_book;
 	}
 }

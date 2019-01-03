@@ -1,5 +1,6 @@
 package com.vae.dao.impl;
 
+
 import java.beans.PropertyVetoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,16 +16,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.util.db.DBUtils;
-import com.vae.domain.Book;
-import com.vae.domain.User;
+import com.vae.domain.Admin;
 
-public class UserDao {
-
-	public void add(User user) throws SQLException {
+public class AdminDao {
+	public void add(Admin admin) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "insert into user(userid, effective_date, expiry_date, type, profession,pwd)values(?,?,?,?,?,?)";
+		 String sql = "insert into admin(aid, pwd, name, sex, tel,adress)values(?,?,?,?,?,?)";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -33,33 +32,12 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,user.getUserid());
-				 Date d=new Date();
-				 user.setEffective_date(d);
-				 if(user.getType().equals("student")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,4*365+1);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 if(user.getType().equals("teacher")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,365);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 if(user.getType().equals("postgradute")) {
-					 Calendar calendar = Calendar.getInstance();
-					 calendar.add(Calendar.DAY_OF_YEAR,365*3);
-					 d = calendar.getTime();
-					 user.setExpiry_date(d);
-				 }
-				 
-				 ps.setDate(2, new java.sql.Date(user.getEffective_date().getTime()));
-				 ps.setDate(3, new java.sql.Date(user.getExpiry_date().getTime()));
-				 ps.setString(4, user.getType());
-				 ps.setString(5, user.getProfession());
-				 ps.setString(6, user.getPwd());
+				 ps.setInt(1,admin.getAid());
+				 ps.setString(2, admin.getName());
+				 ps.setString(3, admin.getPwd());
+				 ps.setString(4, admin.getSex());
+				 ps.setString(5, admin.getAdress());
+				 ps.setString(6, admin.getTel());
               ps.executeUpdate();
           }catch(SQLException e){
               e.printStackTrace();
@@ -70,11 +48,11 @@ public class UserDao {
 	}
 
 	
-	public void update(User user) throws SQLException {
+	public void update(Admin admin) throws SQLException {
 		// TODO Auto-generated method stub
 		 Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "update user set effective_date=?,expiry_date=?,type=?,profession=?,pwd=? where userid=?";
+		 String sql = "update admin set name=?,pwd=?,sex=?,tel=?,adress=? where aid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -83,12 +61,12 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(6,user.getUserid());
-				 ps.setDate(1, new java.sql.Date(user.getEffective_date().getTime()));
-				 ps.setDate(2, new java.sql.Date(user.getExpiry_date().getTime()));
-				 ps.setString(3, user.getType());
-				 ps.setString(4, user.getProfession());
-				 ps.setString(5, user.getPwd());
+				ps.setString(1, admin.getName());
+				ps.setString(2, admin.getPwd());
+				ps.setString(3, admin.getSex());
+				ps.setString(4, admin.getTel());
+				ps.setString(5, admin.getAdress());
+				ps.setInt(6, admin.getAid());
              ps.executeUpdate();
          }catch(SQLException e){
              e.printStackTrace();
@@ -98,11 +76,11 @@ public class UserDao {
          }
 	}
 
-	public void delete(User user) throws SQLException {
+	public void delete(Admin admin) throws SQLException {
 		// TODO Auto-generated method stub
 		Connection conn = null;
 		 PreparedStatement ps = null;
-		 String sql = "delete from user where userid=?";
+		 String sql = "delete from admin where aid=?";
 		 try{
 				 try {
 					conn = DBUtils.getConnection();
@@ -111,7 +89,7 @@ public class UserDao {
 					e.printStackTrace();
 				}
 				 ps = conn.prepareStatement(sql);
-				 ps.setInt(1,user.getUserid());
+				 ps.setInt(1,admin.getAid());
             ps.executeUpdate();
         }catch(SQLException e){
             e.printStackTrace();
@@ -152,12 +130,12 @@ public class UserDao {
 		return resultList;	
 	}
 	
-	public User queryById(int id) throws SQLException{
+	public Admin queryById(int id) throws SQLException{
 		 Connection conn = null;
 		 PreparedStatement ps = null;
 		 ResultSet rs = null;
-		 User u = null;
-		 String sql = "select * from user where userid=?";
+		 Admin admin = null;
+		 String sql = "select * from admin where aid=?";
 		 try{
 			 try {
 				conn = DBUtils.getConnection();
@@ -169,13 +147,13 @@ public class UserDao {
 		            ps.setInt(1, id);
 		             rs = ps.executeQuery();
 		            if(rs.next()){
-	                 u = new User();
-	                 u.setUserid(id);
-	                 u.setEffective_date(rs.getDate("effective_date"));
-	                 u.setExpiry_date(rs.getDate("expiry_date"));
-	                 u.setProfession(rs.getString("profession"));
-	                 u.setType(rs.getString("type"));
-	                 u.setPwd(rs.getString("pwd"));
+		            	admin = new Admin();
+		            	admin.setAid(rs.getInt("aid"));
+		            	admin.setName(rs.getString("name"));
+		            	admin.setPwd(rs.getString("pwd"));
+		            	admin.setSex(rs.getString("sex"));
+		            	admin.setTel(rs.getString("tel"));
+		            	admin.setAdress(rs.getString("adress"));
 	             }
 	         }catch(SQLException e){
 	             e.printStackTrace();
@@ -183,6 +161,6 @@ public class UserDao {
 	        }finally{
 	             DBUtils.close(rs, ps, conn);
 	         }
-	         return u;
+	         return admin;
 	}
 }

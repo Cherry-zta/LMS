@@ -21,9 +21,9 @@ public class TestUserDao {
 	}
 	
 	@Test
-	public void AqueryById()  throws SQLException {
-		User user = userDao.queryById(1);
-		assertEquals("cs", user.getProfession());
+	public void BqueryById()  throws SQLException {
+		User user = userDao.queryById(2);
+		assertEquals("123", user.getPwd());
 	}
 	
 	@Test
@@ -31,23 +31,26 @@ public class TestUserDao {
 		User user1 = new User();
 		user1.setProfession("cs");
 		user1.setType("teacher");
+		user1.setPwd("123");
 		userDao.add(user1);
 		
 		User user2 = new User();
 		user2.setProfession("cs");
 		user2.setType("student");
+		user2.setPwd("123");
 		userDao.add(user2);
 		
 		User user3 = new User();
 		user3.setProfession("cs");
 		user3.setType("postgradute");
+		user3.setPwd("123");
 		userDao.add(user3);
 	}
 	
 	@Test
 	public void Cupdate() throws SQLException {
-		User user = userDao.queryById(3);
-		user.setProfession("la");
+		User user = userDao.queryById(2);
+		user.setPwd("234");
 		userDao.update(user);
 	}
 	
